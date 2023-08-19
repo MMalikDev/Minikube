@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: prometheus-storage-pvc
+  namespace: monitoring
+  labels:
+    app: prometheus
+spec:
+  storageClassName: main-storage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

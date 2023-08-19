@@ -1,0 +1,64 @@
+# Disable Dashboard
+ingressRoute:
+  dashboard:
+    # enabled: true
+    enabled: false
+  # insecure: true
+  #   enabled: true
+
+ports:
+  # Configure your entrypoints here...
+  http:
+    # (optional) Permanent Redirect to HTTPS
+    # redirectTo:
+    #   port: https
+  https:
+    tls:
+      enabled: true
+
+providers:
+  kubernetesIngress:
+    ingressEndpoint:
+      hostname: "localhost"
+    endpoint: "http://localhost:8080"
+    namespaces:
+      - "default"
+      - "database"
+
+#     exposedByDefault: false
+#   file:
+#     filename: /etc/provider/config.yaml
+
+# global:
+#   checkNewVersion: false
+#   sendAnonymousUsage: false
+
+logs:
+  # Configure log settings here...
+  general:
+    level: ERROR
+  #   format: json
+  #   filePath: /var/log/traefik/traefik.log
+
+  # accessLog:
+  #   format: json
+  #   filePath: /var/log/traefik/access.log
+
+ingressClass:
+  enabled: true
+  isDefaultClass: true
+
+persistence:
+  enabled: true
+  name: ssl-certs
+  path: /ssl-certs
+  size: 1Gi
+
+deployment:
+  initContainers:
+    - name: volume-permissions
+      image: busybox:1.36.1
+      command: ["sh", "-c", "chmod -Rv 600 /ssl-certs/*"]
+      volumeMounts:
+        - name: ssl-certs
+          mountPath: /ssl-certs

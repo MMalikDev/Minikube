@@ -1,0 +1,35 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: mongo
+  namespace: database
+spec:
+  rules:
+    - host: mongo.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mongo-express
+                port:
+                  name: http
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: postgres
+  namespace: database
+spec:
+  rules:
+    - host: postgres.localhost
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pgadmin
+                port:
+                  name: http

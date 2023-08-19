@@ -1,0 +1,59 @@
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: grafana
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: grafana
+spec:
+  rules:
+    - host: "grafana.localhost"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  name: http
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: uptimekuma
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: uptimekuma
+spec:
+  rules:
+    - host: "uptimekuma.localhost"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: uptimekuma
+                port:
+                  name: http
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: prometheus
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: prometheus
+spec:
+  rules:
+    - host: "prometheus.localhost"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: prometheus
+                port:
+                  name: http

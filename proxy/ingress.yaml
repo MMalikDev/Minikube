@@ -1,0 +1,31 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: proxy-dashboard
+  namespace: default
+spec:
+  selector:
+    app: proxy
+  ports:
+    - name: dashboard
+      targetPort: dashboard
+      protocol: TCP
+      port: 8080
+---
+kind: Ingress
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: proxy
+  namespace: default
+spec:
+  rules:
+    - host: "proxy.localhost"
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: proxy-dashboard
+                port:
+                  name: dashboard

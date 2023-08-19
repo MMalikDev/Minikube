@@ -1,0 +1,92 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: homepage
+  namespace: management
+  labels:
+    app.kubernetes.io/name: homepage
+data:
+  kubernetes.yaml: |
+    mode: cluster
+
+  settings.yaml: ""
+  docker.yaml: ""
+  custom.css: ""
+  custom.js: ""
+
+  bookmarks.yaml: |
+    - Developer:
+        - Github:
+            - abbr: GH
+              icon: si-github-#181717
+              href: https://github.com/
+    - Entertainment:
+        - Youtube:
+            - abbr: YT
+              icon: si-youtube-#FF0000
+              href: https://Youtube.com/
+    - Socials:
+        - Linkedin:
+            - abbr: YT
+              icon: si-linkedin-#0A66C2
+              href: https://linkedin.com/
+
+  services.yaml: |
+    - Security:
+        - Vaultwarden:
+            href: http://vaultwarden.localhost/
+            description: Vaultwarden Vault
+            icon: si-vaultwarden-#000000
+    - Management:
+        - Home:
+            href: http://localhost/
+            description: Homepage UI
+            icon: homepage.png
+        - Portainer:
+            href: http://portainer.localhost/
+            description: Docker Management UI
+            icon: si-portainer-#13BEF9
+    - Database:
+        - Postgres Dashboard:
+            href: http://postgres.localhost
+            description: Access Postgres with pgAdmin4
+            icon: si-postgresql-#4169E1
+        - MongoDB Dashboard:
+            href: http://mongo.localhost
+            description: Access MongoDB with Mongo Express
+            icon: si-mongodb-#47A248
+    - Monitoring:
+        - UptimeKuma:
+            href: http://uptimekuma.localhost
+            description: UptimeKuma Dashboard
+            icon: si-uptimekuma-#5CDD8B
+        - Prometheus:
+            href: http://prometheus.localhost
+            description: Prometheus Dashboard
+            icon: si-prometheus-#E6522C
+        - Grafana:
+            href: http://grafana.localhost
+            description: Grafana Dashboard
+            icon: si-grafana-#F46800
+
+  widgets.yaml: |
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+    - resources:
+        backend: resources
+        expanded: true
+        cpu: true
+        memory: true
+    - search:
+        provider: duckduckgo
+        target: _blank

@@ -1,0 +1,119 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: manual-pv1
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: main-storage
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/volumes/pv1/
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: manual-pv2
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: main-storage
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/volumes/pv2/
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: manual-pv3
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: main-storage
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/volumes/pv3/
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: manual-pv4
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: main-storage
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/volumes/pv4/
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: manual-pv5
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: main-storage
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/volumes/pv5/
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: manual-pv6
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: main-storage
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/volumes/pv6/
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: manual-pv7
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: main-storage
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/volumes/pv7/
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: manual-pv8
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: main-storage
+  volumeMode: Filesystem
+  hostPath:
+    path: /mnt/volumes/pv8/

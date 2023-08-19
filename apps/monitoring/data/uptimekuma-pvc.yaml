@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: uptimekuma-data-pvc
+  namespace: monitoring
+  labels:
+    app: uptimekuma
+spec:
+  storageClassName: main-storage
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

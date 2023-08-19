@@ -1,0 +1,24 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: pgadmin-configmap
+  namespace: database
+  labels:
+    app: pgadmin-configmap
+data:
+  pgpass: postgres:5432:${DB_NAME}:${DB_USERNAME}:${DB_PASSWORD}
+  pgadmin4/servers.json: |
+    {
+      "Servers": {
+        "1": {
+          "Group": "Servers",
+          "Name": "Postgres",
+          "Host": "postgres",
+          "Port": 5432,
+          "MaintenanceDB": "${DB_NAME}",
+          "Username": "${DB_USERNAME}",
+          "PassFile": "/pgpass",
+          "SSLMode": "prefer"
+        }
+      }
+    }

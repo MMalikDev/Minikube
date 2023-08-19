@@ -1,0 +1,50 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: pgadmin-deployment
+  namespace: database
+  labels:
+    app: pgadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgadmin
+  template:
+    metadata:
+      labels:
+        app: pgadmin
+    spec:
+      containers:
+        - name: pgadmin
+          image: dpage/pgadmin4
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: PGADMIN_LISTEN_PORT
+              value: "80"
+            - name: PGADMIN_DEFAULT_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: pgadmin-secret
+                  key: PGADMIN_DEFAULT_EMAIL
+            - name: PGADMIN_DEFAULT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgadmin-secret
+                  key: PGADMIN_DEFAULT_PASSWORD
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pgadmin
+  namespace: database
+spec:
+  selector:
+    app: pgadmin
+  ports:
+    - name: http
+      targetPort: http
+      protocol: TCP
+      port: 80
