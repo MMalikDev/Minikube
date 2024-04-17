@@ -1,0 +1,130 @@
+cloud-architecture-diagram
+
+// Define groups and nodes
+Client [icon: users]
+Firewall [icon: firewall]
+Load Balancer [icon: load-balancer ]
+
+Cluster [icon:kubernetes, color: cyan] {
+    
+    Default [icon: k8s-ns, color: gray] {
+        Traefik Dashboard Service [icon: k8s-api]
+        Traefik Service [icon: k8s-api ]
+        Traefik [icon: k8s-deploy]
+        
+        Ingress [icon: k8s-k-proxy]
+    }
+    
+    Montoring [icon: k8s-ns, color: purple] {
+        Uptime Kuma Service [icon: k8s-api]
+        Uptime Kuma [icon: k8s-deploy]
+        Uptime Kuma PVC [icon: k8s-pvc]
+        
+        Grafana Service [icon: k8s-api]
+        Grafana [icon: k8s-deploy]
+        
+        Prometheus Service [icon: k8s-api]
+        Prometheus [icon: k8s-deploy ]
+        Prometheus Configmap [icon: k8s-cm]
+        Prometheus PVC [icon: k8s-pvc]
+    }
+    
+    Security [icon: k8s-ns, color: red] {
+        Vaultwarden [icon: k8s-deploy]
+        Vaultwarden Service [icon: k8s-api]
+        Vaultwarden PVC [icon: k8s-pvc]
+    }
+    
+    Management [icon: k8s-ns, color: navy] {
+        Homepage Service [icon: k8s-api ]
+        Homepage [icon: k8s-deploy]
+        Homepage Secret [icon: k8s-secret]
+        Homepage Configmap [icon: k8s-cm]
+        
+        Portainer [icon: k8s-deploy]
+        Portainer PVC [icon: k8s-pvc]
+        Portainer Service [icon: k8s-api]
+    }
+    
+    Database [icon: k8s-ns, color: green] {
+        Mongo Express Service [icon: k8s-api]
+        Mongo Express [icon: k8s-deploy]
+        Mongo Express Configmap [icon: k8s-cm]
+        
+        MongoDB Service [icon: k8s-api]
+        MongoDB [icon: k8s-deploy]
+        MongoDB Secret [icon: k8s-secret]
+        MongoDB PVC Data [icon: k8s-pvc]
+        MongoDB PVC Config [icon: k8s-pvc]
+        
+        pgAdmin Service [icon: k8s-api]
+        pgAdmin [icon: k8s-deploy]
+        pgAdmin Secret [icon: k8s-secret]
+        
+        Postgres Service [icon: k8s-api]
+        Postgres [icon: k8s-deploy]
+        Postgres Secret [icon: k8s-secret]
+        Postgres Configmap [icon: k8s-cm]
+        Postgres PVC [icon: k8s-pvc]
+    }
+    
+    StorageClass [icon: k8s-sc]
+}
+Persistent Volumes [color: blue] {
+    PV1 [icon: k8s-pv]
+    PV2 [icon: k8s-pv]
+    PV3 [icon: k8s-pv]
+    PV4 [icon: k8s-pv]
+    PV5 [icon: k8s-pv]
+    PV6 [icon: k8s-pv]
+    PV7 [icon: k8s-pv]
+    PV8 [icon: k8s-pv]
+}
+
+// Define connections
+Client > Firewall > Load Balancer > Traefik Service > Traefik --> Ingress
+Ingress > Traefik Dashboard Service > Traefik
+
+// Monitoring
+Ingress > Uptime Kuma Service > Uptime Kuma > Uptime Kuma PVC > StorageClass
+
+Ingress > Grafana Service > Grafana > Prometheus Service
+
+Ingress > Prometheus Service > Prometheus
+Prometheus > Prometheus Configmap, Prometheus PVC
+Prometheus PVC > StorageClass
+
+// Security
+Ingress > Vaultwarden Service > Vaultwarden > Vaultwarden PVC > StorageClass
+
+// Management
+Ingress > Homepage Service > Homepage
+Homepage  > Homepage Configmap, Homepage Secret
+
+Ingress > Portainer Service > Portainer > Portainer PVC > StorageClass
+
+// Database
+Ingress > Mongo Express Service > Mongo Express
+Mongo Express  > Mongo Express Configmap, MongoDB Secret, MongoDB Service
+
+MongoDB Service > MongoDB
+MongoDB > MongoDB Secret, MongoDB PVC Data, MongoDB PVC Config
+MongoDB PVC Data > StorageClass
+MongoDB PVC Config > StorageClass
+
+Ingress > pgAdmin Service > pgAdmin
+pgAdmin > pgAdmin Secret, Postgres Service
+
+Postgres Service > Postgres
+Postgres > Postgres Configmap, Postgres Secret,  Postgres PVC
+Postgres PVC > StorageClass
+
+// Storage
+StorageClass > PV1
+StorageClass > PV2
+StorageClass > PV3
+StorageClass > PV4
+StorageClass > PV5
+StorageClass > PV6
+StorageClass > PV7
+StorageClass > PV8
