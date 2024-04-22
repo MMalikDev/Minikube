@@ -17,10 +17,6 @@ declare -a logs=(
 # ---------------------------------------------------------------------- #
 # Helper
 # ---------------------------------------------------------------------- #
-get_secret(){
-    echo -n "$1" | base64
-}
-
 switch_namespace(){
     local namespace="$1"
     kubectl config set-context --current --namespace=$namespace
@@ -29,6 +25,10 @@ switch_namespace(){
 # ---------------------------------------------------------------------- #
 # OPTIONS
 # ---------------------------------------------------------------------- #
+get_secret(){
+    echo -n "$1" | base64
+}
+
 create_cluster(){
     minikube start;
 }
@@ -162,26 +162,32 @@ restart_all(){
 # Main Function
 # ---------------------------------------------------------------------- #
 main(){
-    while getopts "g:cdvarnspmbith" OPTION; do
+    while getopts "b:g:cdvarnspmbith" OPTION; do
         case $OPTION in
+            b) get_secret $OPTARG   ;;
+            
             g) get_obj $OPTARG      ;;
             c) create_cluster       ;;
             d) delete_cluster       ;;
+            
             v) setup_volumes        ;;
             i) start_ingress        ;;
             a) setup_all            ;;
             r) restart_all          ;;
+            
             n) setup_database_nosql ;;
             s) setup_database_sql   ;;
             p) setup_monitoring     ;;
             m) setup_management     ;;
             b) setup_security       ;;
+            
             t) tunnel_proxy         ;;
             h) display_usage        ;;
             ?) display_usage        ;;
         esac
     done
     shift $((OPTIND -1))
+    
 }
 
 main $@

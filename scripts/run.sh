@@ -12,6 +12,8 @@ Usage: $0 [OPTIONS] [ARGS]
 Run Project in specified environment
 
     OPTIONS
+     -b [SECRETS]   Get Base64 Encoding of Secret
+
      -g [OBJECTS]   Get Cluster Objects
      -c             Create Minikube Cluster
      -d             Delete Minikube Cluster
