@@ -22,6 +22,7 @@ Template script for $(basename "$0" | cut -d. -f1)
         -b      Install Binary (arm64)
         -d      Install Deb (x86-64)
         -a      Install Deb (arm64)
+        -v      Show Minikube Version
         -h      Show this page
 
 EOF
@@ -62,18 +63,19 @@ install_deb_arm64(){
 # Main Function
 # ---------------------------------------------------------------------- #
 main(){
-    while getopts "ibdah" OPTION; do
+    while getopts "ibdavh" OPTION; do
         case $OPTION in
             i) install_binary       ;;
             b) install_binary_arm64 ;;
             d) install_deb          ;;
             a) install_deb_arm64    ;;
+            v) minikube version    ;;
             h) display_usage        ;;
             ?) display_usage        ;;
         esac
     done
     shift $((OPTIND -1))
-    minikube version
+    
 }
 
 main $@

@@ -17,15 +17,16 @@ Usage: $0 [OPTIONS]
 Template script for $(basename "$0" | cut -d. -f1)
 
     OPTIONs
-        -a      Add User to new docker group
-        -s      Setup APT for docker
-        -i      Install Latest Version
-        -v      Install Specifc Version
-        -l      List Docker Versions
-        -g      Get Gnome Terminal
-        -r      Remove Old Docker Version
-        -p      Handle All Required Prerequisites
-        -h      Show this page
+        -a              Add User to new docker group
+        -s              Setup APT for docker
+        -i              Install Latest Version
+        -v [VERSION]    Install Specific Version
+        -l              List Docker Versions
+        -g              Get Gnome Terminal
+        -r              Remove Old Docker Version
+        -p              Handle All Required Prerequisites
+        -c              Show Docker Version
+        -h              Show this page
 
 EOF
     
@@ -84,7 +85,7 @@ install_latest(){
 }
 
 install_version(){
-    local VERSION_STRING=""
+    local VERSION_STRING="$@"
     printf "\n$start_icon Installing $program ($VERSION_STRING) using apt\n"
     sudo apt install -y docker-ce=$VERSION_STRING docker-ce-cli=$VERSION_STRING
     sudo apt install -y containerd.io docker-buildx-plugin docker-compose-plugin
@@ -102,28 +103,31 @@ add_user(){
     newgrp docker
 }
 
+show_current_version(){
+    docker --version
+    docker compose version
+}
+
 # ---------------------------------------------------------------------- #
 # Main Function
 # ---------------------------------------------------------------------- #
 main(){
-    while getopts "asivlgrph" OPTION; do
+    while getopts "asiv:lgrpch" OPTION; do
         case $OPTION in
-            a) add_user             ;;
-            s) setup_apt            ;;
-            i) install_latest       ;;
-            v) install_version      ;;
-            l) list_versions        ;;
-            g) get_gnome            ;;
-            r) remove_old           ;;
-            p) handle_prerequisites ;;
-            h) display_usage        ;;
-            ?) display_usage        ;;
+            a) add_user                 ;;
+            s) setup_apt                ;;
+            i) install_latest $OPTARG   ;;
+            v) install_version          ;;
+            l) list_versions            ;;
+            g) get_gnome                ;;
+            r) remove_old               ;;
+            p) handle_prerequisites     ;;
+            c) show_current_version     ;;
+            h) display_usage            ;;
+            ?) display_usage            ;;
         esac
     done
     shift $((OPTIND -1))
-    
-    docker --version
-    docker compose version
 }
 
 main $@
