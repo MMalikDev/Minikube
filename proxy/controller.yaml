@@ -53,7 +53,7 @@ spec:
       serviceAccountName: proxy-account
       containers:
         - name: traefik
-          image: traefik
+          image: traefik:v3.0
           ports:
             - name: http
               containerPort: 80

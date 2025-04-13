@@ -29,6 +29,7 @@ Run Project in specified environment
      -m             Setup Management Apps Configs
      -b             Setup Security Apps Configs
 
+     -z             Start Minikube Tunnel
      -t             Tunnel to Ingress Controller Proxy
      -h             Display this help
 

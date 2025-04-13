@@ -30,6 +30,22 @@ Here's a diagram showing the organization and connectivity between components in
 
 1. Templates are flexible—customize them to fit your individual requirements (e.g., modifying the `main-storage` StorageClass or tailoring Persistent Volumes to suit your cluster configuration).
 
+1. After deploying [**HomePage**](http://localhost/) and [**Traefik**](http://proxy.localhost/), connect to your application via `localhost`.
+
+   > Note: You may need to start the Minikube tunnel to enable LoadBalancer access.
+
+For a quick and minimal setup, run:
+
+```bash
+bash run.sh -cimz
+```
+
+To launch all features at once, use:
+
+```bash
+bash run.sh -caz
+```
+
 ## Additional Information
 
 Run the following command to see a list of available options and usage instructions:

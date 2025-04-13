@@ -50,8 +50,13 @@ get_obj(){
     esac
 }
 
+start_tunnel(){
+    sudo echo 'Activating Superuser'
+    minikube tunnel
+}
+
 tunnel_proxy(){
-    minikube service proxy --url=true
+    minikube service proxy --url
 }
 
 start_ingress(){
@@ -162,7 +167,7 @@ restart_all(){
 # Main Function
 # ---------------------------------------------------------------------- #
 main(){
-    while getopts "b:g:cdvarnspmbith" OPTION; do
+    while getopts "b:g:cdvarnspmbizth" OPTION; do
         case $OPTION in
             b) get_secret $OPTARG   ;;
             
@@ -181,13 +186,13 @@ main(){
             m) setup_management     ;;
             b) setup_security       ;;
             
+            z) start_tunnel         ;;
             t) tunnel_proxy         ;;
             h) display_usage        ;;
             ?) display_usage        ;;
         esac
     done
     shift $((OPTIND -1))
-    
 }
 
 main $@
